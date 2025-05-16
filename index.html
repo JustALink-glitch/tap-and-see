@@ -2,15 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <meta name="description" content="A special question for a special someone.">
-    <meta name="keywords" content="love, question, girlfriend, special, celebration">
-    <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
     <title>A Special Question</title>
     <style>
         body {
@@ -85,32 +77,6 @@
     }
 }
 @media screen and (max-width: 480px) {
-    .img-placeholder {
-        width: 150px;
-        height: 150px;
-    }
-}
-@media screen and (max-width: 350px) {
-    .content-box {
-        padding: 20px;
-        width: 90%;
-    }
-    
-    h1 {
-        font-size: 1.8rem;
-    }
-    
-    .btn {
-        padding: 10px 25px !important;
-        font-size: 1.1rem !important;
-    }
-    
-    #yes-btn {
-        font-size: 1.3rem !important;
-        padding: 12px 35px !important;
-    }
-}
-@media screen and (max-width: 350px) {
     .img-placeholder {
         width: 150px;
         height: 150px;
@@ -211,7 +177,37 @@
                 transform: scale(1);
             }
         }
-        
+         #music-player-container {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    z-index: 999;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+  }
+  
+  #music-player-container.visible {
+    opacity: 1;
+  }
+
+  .music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(233, 30, 99, 0.8);
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
         .celebration {
             position: fixed;
             top: 0;
@@ -233,12 +229,20 @@
     </style>
 </head>
 <body>
+    <div id="music-player-container" style="display:none;">
+  <iframe id="spotify-player" src="https://open.spotify.com/embed/track/0iNPchBB4NFskbhvZ8GTl8" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+</div>
+
+<!-- Add this button for controlling music -->
+<button id="play-music" class="music-btn">
+  <span id="music-icon">🔇</span>
+</button>
     <!-- Page 1: Welcome -->
     <div id="page1" class="page">
         <div class="content-box">
             <div class="heart heart1">❤</div>
-            <h1>Two Days In, and Already You’ve Stolen My Heart</h1>
-            <p>What started as a random call became the most exciting 48 hours of my life.</p>
+            <h1>Raheema, My Heart Knew You Were the One</h1>
+            <p>What started as a random call became the most exciting thing of my life.</p>
             <p>From that first message to the laughter we’ve shared, I’ve found myself smiling at my phone more than I ever thought I would. I can’t wait for what’s next…</p>
             <button class="btn" onclick="nextPage(1)">Discover Our Story</button>
             <div class="heart heart2">❤</div>
@@ -249,15 +253,15 @@
     <div id="page2" class="page hidden">
         <div class="content-box">
             <div class="heart heart1">❤</div>
-            <h1>A timeline of two days that feel like forever</h1>
-            <p>Day 1 - You said ‘hi’ and the world felt a little brighter. <br>
+            <h1>Every Moment with You is a Memory I'd Cherish Forever</h1>
+            <p>Even though we haven’t met in person, our connection feels deeper than distance.
+Every call, every heartfelt conversation, every shared silence it’s all etched into my heart.
+Raheema, your voice has become my favorite sound, your words my daily comfort.
+We’ve laughed together, building something real,something rare.
 
-Day 2 – When I had to stay up to talk to you all through the night, I knew I wanted more of you.” <br>
-
-Today – Here We Are,
-In love with you already. <br> <br> 
-would you like to keep going?</p>
-            <button class="btn" onclick="nextPage(2)">See Why I Can’t Stop Thinking About You</button>
+These moments we’ve shared, even through a screen, are memories I hold close.
+And I know in my soul, when we finally meet, it will feel like coming home. <br> 
+            <button class="btn" onclick="nextPage(2)">See what's next</button>
             <div class="heart heart2">❤</div>
         </div>
     </div>
@@ -267,7 +271,7 @@ would you like to keep going?</p>
         <div class="content-box">
             <div class="heart heart1">❤</div>
             <h1>From My Heart to Yours</h1>
-            <p>There's something about you that makes my heart skip a beat. Your smile brightens my day, and talking to you makes everything better.</p>
+            <p>There's something about you that makes my heart skip a beat. Your smile brightens my day, and talking to you makes everything perfect.</p>
             <p>I admire your beauty, your Kindness, and how you are outspoken about how you love being in love. You've become someone truly special to me.</p>
             <p>And that's why...</p>
             <button class="btn" onclick="nextPage(3)">Let's get it</button>
@@ -315,6 +319,33 @@ would you like to keep going?</p>
                 <div class="heart heart2">❤</div>
             `;
         }
+         document.addEventListener('DOMContentLoaded', function() {
+    const playerContainer = document.getElementById('music-player-container');
+    const playButton = document.getElementById('play-music');
+    const musicIcon = document.getElementById('music-icon');
+    let isPlaying = false;
+    
+    // Toggle play/pause when button is clicked
+    playButton.addEventListener('click', function() {
+      if (!isPlaying) {
+        // Show player
+        playerContainer.style.display = 'block';
+        setTimeout(() => {
+          playerContainer.classList.add('visible');
+        }, 10);
+        musicIcon.textContent = '🔊';
+        isPlaying = true;
+      } else {
+        // Hide player (this will pause the music)
+        playerContainer.classList.remove('visible');
+        setTimeout(() => {
+          playerContainer.style.display = 'none';
+        }, 300);
+        musicIcon.textContent = '🔇';
+        isPlaying = false;
+        }
+    });
+  });
         
         function createConfetti() {
             const celebration = document.getElementById('celebration');
@@ -325,7 +356,7 @@ would you like to keep going?</p>
             confetti.style.left = Math.random() * 100 + 'vw';
             confetti.style.top = -20 + 'px';
             confetti.style.backgroundColor = getRandomColor();
-            confetti.style.width = Math.random() * 15 + 5 + 'px';
+            confetti.style.width =  Math.random() * 15 + 5 + 'px';
             confetti.style.height = confetti.style.width;
             
             celebration.appendChild(confetti);
