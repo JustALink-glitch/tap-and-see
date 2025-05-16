@@ -36,7 +36,13 @@
         .content-box {
     width: 90%;
     max-width: 600px;
-    /* other styles */
+    background: linear-gradient(to right bottom, #fff1f8, #fce4ec);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(233, 30, 99, 0.2);
+    margin: 20px;
+    position: relative;
+    overflow: hidden;
 }
 /* Mobile Responsiveness */
 @media screen and (max-width: 768px) {
@@ -82,17 +88,48 @@
     }
 }
 
-        .content-box {
-            max-width: 600px;
-            background: linear-gradient(to right bottom, #fff1f8, #fce4ec);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.2);
-            margin: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        
+/* Larger Screens (Desktops) */
+@media screen and (min-width: 1024px) {
+    .content-box {
+        max-width: 800px;
+        padding: 50px;
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    p {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        font-size: 1.3rem;
+        padding: 15px 40px;
+    }
+}
+
+/* Extra Large Screens */
+@media screen and (min-width: 1440px) {
+    .content-box {
+        max-width: 1000px;
+        padding: 60px;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    p {
+        font-size: 1.8rem;
+    }
+
+    .btn {
+        font-size: 1.5rem;
+        padding: 20px 50px;
+    }
+}
+
         h1 {
             color: #ad1457;
             margin-bottom: 30px;
@@ -226,6 +263,41 @@
             background-color: #e91e63;
             opacity: 0.7;
         }
+        /* For very small screens (less than 380px) */
+    @media screen and (max-width: 380px) {
+        .page {
+            height: auto; /* Allow the height to adjust based on content */
+            padding: 10px; /* Reduce padding for smaller screens */
+        }
+
+        .content-box {
+            padding: 15px; /* Reduce padding inside the content box */
+            width: 95%; /* Make the content box slightly narrower */
+        }
+
+        h1 {
+            font-size: 1.5rem; /* Adjust font size for headings */
+        }
+
+        p {
+            font-size: 0.9rem; /* Adjust font size for paragraphs */
+        }
+
+        .btn {
+            font-size: 1rem; /* Adjust button font size */
+            padding: 8px 20px; /* Reduce button padding */
+        }
+
+        #yes-btn {
+            font-size: 1.1rem; /* Adjust "Yes" button font size */
+            padding: 10px 30px; /* Reduce padding for the "Yes" button */
+        }
+
+        .img-placeholder {
+            width: 120px; /* Reduce image placeholder size */
+            height: 120px;
+        }
+    }
     </style>
 </head>
 <body>
